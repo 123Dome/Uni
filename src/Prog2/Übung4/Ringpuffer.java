@@ -30,12 +30,12 @@ public class Ringpuffer<T> {
     }
 
     public T get(int pos) throws NoSuchElementException {
-        if(this.isEmpty() || pos > this.capacity || pos < 0) throw new NoSuchElementException();
+        if(this.isEmpty() || pos >= this.capacity || pos < 0) throw new NoSuchElementException();
         return this.array[(this.vorne + pos) % this.size];
     }
 
     public T set(int pos, T o) throws IndexOutOfBoundsException{
-        if(pos < 0 || pos > this.capacity || pos < 0) throw new IndexOutOfBoundsException();
+        if(pos < 0 || pos >= this.capacity || pos < 0) throw new IndexOutOfBoundsException();
         T tmp = this.array[(this.vorne + pos) % this.size];
         this.array[(this.vorne + pos) % this.size] = o;
         return tmp;
@@ -43,6 +43,8 @@ public class Ringpuffer<T> {
 
     public void addFirst(T o) throws IndexOutOfBoundsException{
         if(this.size == this.capacity) throw new IndexOutOfBoundsException();
+
+        if(this.vorne == -1) this.array[++this.vorne] = o; // Für das erste Element in der Liste
 
         if(this.vorne == 0){
             this.array[this.capacity - 1] = o;
