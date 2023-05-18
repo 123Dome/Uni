@@ -13,7 +13,7 @@ public class FolgeMitRing<T> implements Folge<T>{
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.ring.isEmpty();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class FolgeMitRing<T> implements Folge<T>{
         if(pos == this.ring.getSize()-1){
             this.ring.addLast(o);
         } else {
-
+            //TODO
         }
     }
 

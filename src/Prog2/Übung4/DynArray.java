@@ -20,7 +20,7 @@ public class DynArray<T> {
     }
 
     public int getCapacity(){
-        return this.array.length;
+        return this.capacity;
     }
 
     private void increase(){
