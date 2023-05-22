@@ -1,5 +1,8 @@
 package Prog2.Übung6;
 
+import Prog2.Übung5.Folge;
+
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class IntSuchbaum {
@@ -106,5 +109,16 @@ public class IntSuchbaum {
         else{
             return 1 + this.size(k.left) + this.size(k.right);
         }
+    }
+
+    public Folge<Integer> preorder() throws NoSuchElementException {
+        if(this.isEmpty()) throw new NoSuchElementException();
+        return preorderHilfe(this.startKnoten);
+    }
+
+    private Integer preorderHilfe(KnotenElement k){
+        Folge<Integer> folge = null;
+        folge.insert(k.data);
+        folge.insert(preorderHilfe(k.left));
     }
 }
