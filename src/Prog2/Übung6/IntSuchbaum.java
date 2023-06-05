@@ -1,9 +1,8 @@
 package Prog2.Übung6;
 
-import Prog2.Übung5.Folge;
+import Prog2.Übung5.FolgeMitDynArray;
 
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 public class IntSuchbaum {
     private KnotenElement startKnoten;
@@ -111,14 +110,4 @@ public class IntSuchbaum {
         }
     }
 
-    public Folge<Integer> preorder() throws NoSuchElementException {
-        if(this.isEmpty()) throw new NoSuchElementException();
-        return preorderHilfe(this.startKnoten);
-    }
-
-    private Integer preorderHilfe(KnotenElement k){
-        Folge<Integer> folge = null;
-        folge.insert(k.data);
-        folge.insert(preorderHilfe(k.left));
-    }
 }
