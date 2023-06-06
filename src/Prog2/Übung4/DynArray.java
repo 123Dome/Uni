@@ -46,13 +46,15 @@ public class DynArray<T> {
         }
     }
 
-    public T get(int pos) throws IndexOutOfBoundsException {
-        if(this.isEmpty() || pos < 0 || pos > this.size) throw new NoSuchElementException();
+    public T get(int pos) throws IndexOutOfBoundsException, NoSuchElementException {
+        if(pos < 0 || pos > this.size) throw new IndexOutOfBoundsException();
+        else if (this.isEmpty()) throw new NoSuchElementException();
         return array[pos];
     }
 
     public T set(int pos, T o) throws IndexOutOfBoundsException {
-        if (this.isEmpty() || pos < 0 || pos > this.size) throw new NoSuchElementException();
+        if (pos < 0 || pos > this.size) throw new IndexOutOfBoundsException();
+        else if (this.isEmpty()) throw new NoSuchElementException();
         T tmp = this.array[pos];
         this.array[pos] = o;
         return tmp;
@@ -106,8 +108,9 @@ public class DynArray<T> {
         return tmp;
     }
 
-    public T remove(int pos) throws IndexOutOfBoundsException{ // Im Array Element entfernen (Ü5)
+    public T remove(int pos) throws IndexOutOfBoundsException, NoSuchElementException{ // Im Array Element entfernen (Ü5)
         if(pos < 0 || pos >= this.size) throw new IndexOutOfBoundsException();
+        else if (this.isEmpty()) throw new NoSuchElementException();
         T tmp = this.array[pos];
         for(int i = pos; i < this.size - 1; i++){ // Array verschieben
             this.array[i] = this.array[i+1];

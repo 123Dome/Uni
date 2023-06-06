@@ -1,9 +1,8 @@
 package Prog2.Übung4;
 
-import java.awt.dnd.InvalidDnDOperationException;
 import java.util.NoSuchElementException;
 
-public class Ringpuffer<T> {
+public class Ringpuffer<T> { //TODO
     private T[] array;
     private int capacity;
     private int size;
@@ -29,55 +28,42 @@ public class Ringpuffer<T> {
         return this.capacity;
     }
 
-    public T get(int pos) throws NoSuchElementException {
-        if(this.isEmpty() || pos >= this.capacity || pos < 0) throw new NoSuchElementException();
-        return this.array[(this.vorne + pos) % this.size];
+    public T get(int pos) throws IndexOutOfBoundsException, NoSuchElementException {
+        if(this.isEmpty()) throw new NoSuchElementException();
+        if(pos >= this.capacity || pos < 0) throw new IndexOutOfBoundsException();
+        return this.array[(this.vorne + pos) % this.capacity];
     }
 
-    public T set(int pos, T o) throws IndexOutOfBoundsException{
+    public T set(int pos, T o) throws IndexOutOfBoundsException, NoSuchElementException{
+        if(this.isEmpty()) throw new NoSuchElementException();
         if(pos < 0 || pos >= this.capacity || pos < 0) throw new IndexOutOfBoundsException();
-        T tmp = this.array[(this.vorne + pos) % this.size];
-        this.array[(this.vorne + pos) % this.size] = o;
+        T tmp = this.array[(this.vorne + pos) % this.capacity];
+        this.array[(this.vorne + pos) % this.capacity] = o;
         return tmp;
     }
 
     public void addFirst(T o) throws IndexOutOfBoundsException{
         if(this.size == this.capacity) throw new IndexOutOfBoundsException();
-
-        if(this.vorne == -1) this.array[++this.vorne] = o; // Für das erste Element in der Liste
-
-        if(this.vorne == 0){
-            this.array[this.capacity - 1] = o;
-            this.vorne = this.capacity - 1;
-        } else {
-            this.array[--this.vorne] = o;
-        }
-
+        this.array[(this.vorne--) % this.capacity] = o;
         this.size++;
     }
 
     public void addLast(T o) throws IndexOutOfBoundsException{
         if(this.size == this.capacity) throw new IndexOutOfBoundsException();
-
-        if(this.hinten == this.capacity){
-            this.array[0] = o;
-            this.hinten = 0;
-        } else {
-            this.array[++this.hinten] = o;
-        }
-
+        this.array[(this.hinten++) % this.capacity] = o;
         this.size++;
     }
 
     public T removeFirst() throws NoSuchElementException{
         if(this.isEmpty()) throw new NoSuchElementException();
         this.size--;
-        return this.array[this.vorne++];
+        return this.array[(++this.vorne) % this.capacity];
     }
 
     public T removeLast() throws NoSuchElementException{
         if(this.isEmpty()) throw new NoSuchElementException();
         this.size--;
-        return this.array[this.hinten--];
+        return this.array[(--this.hinten) % this.capacity];
     }
+
 }

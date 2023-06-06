@@ -1,0 +1,29 @@
+public FolgeMitDynArray<Integer> breitensuche(){
+        if(this.startKnoten == null) return null;
+        FolgeMitDynArray<Integer> neu = new FolgeMitDynArray<>();
+        SchlangeMitRing<Knoten> neu2 = new SchlangeMitRing<>(size());
+        neu2.insert(root);
+        breitensucherHilfe(root, neu, neu2);
+        return neu;
+    }
+
+    private void breitensucherHilfe(
+            Knoten rek, FolgeMitDynArray<Integer> speicher, SchlangeMitRing<Knoten> speicher2){
+        while(!speicher2.isEmpty()) {
+            speicher.insert(speicher2.remove().value);
+        }
+        if(rek.left != null && rek.right != null) {
+            speicher2.insert(rek.right);
+            speicher2.insert(rek.left);
+            breitensucherHilfe(rek.left,speicher,speicher2);
+            breitensucherHilfe(rek.right,speicher,speicher2);
+        }
+        else if(rek.right != null){
+            speicher2.insert(rek.right);
+            breitensucherHilfe(rek.right,speicher,speicher2);
+        }
+        else if(rek.left != null){
+            speicher2.insert(rek.left);
+            breitensucherHilfe(rek.left,speicher,speicher2);
+        }
+    }

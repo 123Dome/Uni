@@ -4,13 +4,14 @@ import Prog2.Übung4.Ringpuffer;
 
 import java.util.NoSuchElementException;
 
-public class FolgeMitRing<T> implements Folge<T>{
+public class FolgeMitRing<T> implements Folge<T>{ //TODO
     private Ringpuffer<T> ring;
 
     public FolgeMitRing(int capacity){
         this.ring = new Ringpuffer<>(capacity);
     }
 
+    // Interface Puffer
     @Override
     public boolean isEmpty() {
         return this.ring.isEmpty();
@@ -27,7 +28,18 @@ public class FolgeMitRing<T> implements Folge<T>{
     }
 
     @Override
-    public T remove(int pos) throws IndexOutOfBoundsException { // Neu, entfernt Element und die dannach rücken nach
+    public void insert(T o) {
+        this.ring.addLast(o);
+    }
+
+    @Override
+    public T remove() throws NoSuchElementException {
+        return this.ring.removeFirst();
+    }
+
+    // Interface Folge
+    @Override
+    public T remove(int pos) throws IndexOutOfBoundsException { // Entfernt Element und die dannach rücken nach
         if(pos < 0 || pos >= this.ring.getSize()) throw new NoSuchElementException();
         T tmp = this.ring.get(pos);
         for(int i = pos; i < this.ring.getSize(); i++){
@@ -36,16 +48,6 @@ public class FolgeMitRing<T> implements Folge<T>{
         }
         this.ring.removeLast();
         return tmp;
-    }
-
-    @Override
-    public void insert(T o) {
-        this.ring.addLast(o);
-    }
-
-    @Override
-    public T remove() throws NoSuchElementException {
-        return this.ring.removeFirst();
     }
 
     @Override

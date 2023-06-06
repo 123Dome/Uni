@@ -1,0 +1,3 @@
+public T remove(int pos) throws IndexOutOfBoundsException, NoSuchElementException{
+
+    }

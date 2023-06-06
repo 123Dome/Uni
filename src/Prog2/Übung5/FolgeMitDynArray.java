@@ -33,12 +33,12 @@ public class FolgeMitDynArray<T> implements Folge<T>{
 
     @Override
     public T remove() throws NoSuchElementException {
-        return this.array.removeLast();
+        return this.array.removeFirst();
     }
 
     // Interface Folge
     @Override
-    public T remove(int pos) throws IndexOutOfBoundsException { // Neu
+    public T remove(int pos) throws IndexOutOfBoundsException, NoSuchElementException { // Neu
         return this.array.remove(pos);
     }
 
@@ -48,7 +48,7 @@ public class FolgeMitDynArray<T> implements Folge<T>{
     }
 
     @Override
-    public T get(int pos) throws IndexOutOfBoundsException{
+    public T get(int pos) throws IndexOutOfBoundsException, NoSuchElementException{
         return this.array.get(pos);
     }
 

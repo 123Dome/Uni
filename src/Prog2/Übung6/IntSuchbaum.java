@@ -110,4 +110,33 @@ public class IntSuchbaum {
         }
     }
 
+    public FolgeMitDynArray preorder(){
+        if(this.startKnoten == null) return null;
+        FolgeMitDynArray<Integer> folge = new FolgeMitDynArray<>();
+        preorderHilfe(this.startKnoten, folge);
+        return folge;
+    }
+    private void preorderHilfe(KnotenElement rek,FolgeMitDynArray<Integer> folge){
+        if (rek != null) {
+            folge.insert(rek.data); // Füge den Inhalt zur Liste hinzu
+            preorderHilfe(rek.left, folge);
+            preorderHilfe(rek.right, folge);
+        }
+    }
+
+    public FolgeMitDynArray inorder(){
+        if(this.startKnoten == null) return null;
+        FolgeMitDynArray<Integer> folge = new FolgeMitDynArray<>();
+        inorderHilfe(this.startKnoten, folge);
+        return folge;
+    }
+    private void inorderHilfe(KnotenElement rek,FolgeMitDynArray<Integer> folge){
+        if (rek != null) {
+            inorderHilfe(rek.left, folge);
+            inorderHilfe(rek.right, folge);
+            folge.insert(rek.data); // Füge den Inhalt zur Liste hinzu
+        }
+    }
+
+
 }
